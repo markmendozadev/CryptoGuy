@@ -1,0 +1,43 @@
+.table__container {
+  overflow-x: auto;
+}
+.table {
+  margin: 1rem auto;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table thead tr td {
+  border-top: 1px solid rgba(0, 0, 0, 0.123) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.123) !important;
+  padding: clamp(0.5rem, 2.5vw, 1.5rem);
+}
+.table tbody tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.123) !important;
+}
+.table tbody tr td {
+  padding: clamp(0.5rem, 2.5vw, 1rem);
+}
+.button__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.button__container button {
+  padding: 0.5rem 2rem;
+  background: #fff;
+  color: #000;
+}
+.button__container button:disabled {
+  background-color: rgba(255, 255, 255, 0.418);
+  cursor: not-allowed;
+}
+.hover__link {
+  font-weight: bold !important;
+}
+.hover__link:hover {
+  color: rgba(0, 0, 0, 0.8) !important;
+}

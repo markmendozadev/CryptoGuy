@@ -1,0 +1,22 @@
+.container {
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.singleCoin__container .title_container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  font-weight: bold;
+}
+h4 {
+  font-size: clamp(1rem, 2.5vw, 2rem);
+}
+.body__container {
+  margin-left: 1rem;
+}
