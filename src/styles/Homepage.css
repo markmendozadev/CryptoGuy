@@ -1,5 +1,7 @@
-.home_grid {
+.masonary {
   display: grid;
-  grid-template-columns: auto auto;
   gap: 10px;
+  grid-template-columns: auto auto;
+  grid-template-rows: masonry;
+  align-tracks: end, start, end, space-between;
 }

@@ -3,7 +3,6 @@ import useSWR from "swr";
 import axios from "axios";
 import Card from "../components/Card";
 import Spinner from "../components/Spinner";
-import Masonry from "react-masonry-css";
 
 import "../styles/Homepage.css";
 
@@ -33,11 +32,7 @@ const HomePage = () => {
   return (
     <div className="container">
       <h2>Latest News About {category} </h2>
-      <Masonry
-        breakpointCols={2}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
+      <div className="masonary">
         {data.articles.map((article, index) => (
           <Card key={index}>
             <img
@@ -47,10 +42,10 @@ const HomePage = () => {
               height="300px"
             />
             <h4>{article.title}</h4>
-            <div>{article.summary}</div>
+            <div className="">{article.summary}</div>
           </Card>
         ))}
-      </Masonry>
+      </div>
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import CoinPage from "./pages/CoinPage";
 import SingleCoinPage from "./pages/SingleCoinPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -14,7 +14,7 @@ function App() {
           <Route path="coins/:coinsId" element={<SingleCoinPage />} />
         </Routes>
       </Layout>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
