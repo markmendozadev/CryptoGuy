@@ -1,6 +1,5 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Suspense } from "react";
 
 import Coin from "../components/SingleCoin/Coin";
 import Spinner from "../components/Spinner";
