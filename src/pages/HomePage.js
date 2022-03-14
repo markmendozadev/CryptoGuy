@@ -1,10 +1,10 @@
 import React from "react";
-
 import Card from "../components/Card";
 import Spinner from "../components/Spinner";
 
 import classes from "./Homepage.module.css";
 import useCustomSWR from "../hooks/useCustomSWR";
+import Container from "../components/Layout/Container";
 
 const category = "Cryptocurrency";
 const page = 1;
@@ -16,7 +16,7 @@ const headers = {
 };
 
 const HomePage = () => {
-  const { data, error } = useCustomSWR(
+  const { data } = useCustomSWR(
     "https://free-news.p.rapidapi.com/v1/search",
     params,
     headers
@@ -25,27 +25,41 @@ const HomePage = () => {
   if (!data) {
     return <Spinner />;
   }
-  console.log(data);
   return (
-    <div className="container">
-      <h2>Latest News About {category} </h2>
-      <div className="masonary">
+    <Container>
+      <h2 className={classes.main_title}>Latest News About {category} </h2>
+      <div className={classes.masonary}>
         {data.articles.map((article, index) => (
-          <Card key={index}>
-            <img
-              src={article.media}
-              alt={article.title}
-              width="100%"
-              height="300px"
-            />
-            <span>{article.topic}</span>
-            <span>{article.twitter_account}</span>
-            <h4>{article.title}</h4>
-            <div className="">{article.summary}</div>
-          </Card>
+          <div key={index}>
+            <Card>
+              {article.media ? (
+                <img
+                  className={classes.image}
+                  src={article.media}
+                  alt={article.title}
+                />
+              ) : (
+                ""
+              )}
+              <div className={classes.content}>
+                <span>{article.twitter_account}</span>
+                <h2>
+                  <a
+                    href={article.link}
+                    className={classes.link}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {article.title}
+                  </a>
+                </h2>
+                <div className={classes.summary}>{article.summary}</div>
+              </div>
+            </Card>
+          </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
 

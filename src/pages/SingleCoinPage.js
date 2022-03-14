@@ -1,47 +1,54 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useSWR from "swr";
-import Card from "../components/Card";
+import { Suspense } from "react";
+
+import Coin from "../components/SingleCoin/Coin";
 import Spinner from "../components/Spinner";
+import useCustomSWR from "../hooks/useCustomSWR";
 import "../styles/SingleCoinPage.css";
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import Container from "../components/Layout/Container";
+import News from "../components/SingleCoin/News";
 
 const SingleCoinPage = () => {
   const params = useParams();
   const category = params.coinsId;
-  const { data } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/${params.coinsId}?localization=false&tickers=false&market_data=true&developer_data=true&sparkline=false
-  `,
-    fetcher
+  const categoryFirstUpperCase =
+    category.charAt(0).toUpperCase() + category.slice(1);
+
+  const { data: coinData } = useCustomSWR(
+    `https://api.coingecko.com/api/v3/coins/${category}?localization=false&tickers=false&market_data=true&developer_data=true&sparkline=false
+  `
   );
-  if (!data) {
+
+  const page = 1;
+  const page_size = 24;
+  const paramsData = { q: categoryFirstUpperCase, lang: "en", page, page_size };
+  const headers = {
+    "x-rapidapi-host": "free-news.p.rapidapi.com",
+    "x-rapidapi-key": process.env.REACT_APP_RAPID_APIKEY,
+  };
+  const { data: newsData } = useCustomSWR(
+    "https://free-news.p.rapidapi.com/v1/search",
+    paramsData,
+    headers
+  );
+  if (!coinData) {
     return <Spinner />;
   }
+  if (!newsData) {
+    return <Spinner />;
+  }
+  console.log(newsData);
   return (
-    <div className="container" style={{ display: "flex", textAlign: "center" }}>
-      <Card>
-        <div className="title_container">
-          <img src={data.image.small} alt={data.name} />
-          <h2>{data.name.toUpperCase()}</h2>
-          <span>({data.symbol.toUpperCase()})</span>
-        </div>
-        <div className="body__container">
-          <h4>${data.market_data.current_price.usd.toLocaleString()}</h4>
-          <p>
-            Market Cap:
-            <span>${data.market_data.market_cap.usd.toLocaleString()}</span>
-          </p>
-          <p>
-            Max Supply:
-            {data.market_data.max_supply ? (
-              `$${data.market_data.max_supply.toLocaleString()}`
-            ) : (
-              <span style={{ fontSize: "1.5rem" }}>∞</span>
-            )}
-          </p>
-        </div>
-      </Card>
-    </div>
+    <Container>
+      <Coin data={coinData} />
+      <div>
+        <h1 style={{ margin: "2rem" }}>
+          Latest News About {categoryFirstUpperCase}
+        </h1>
+        <News data={newsData} />
+      </div>
+    </Container>
   );
 };
 
