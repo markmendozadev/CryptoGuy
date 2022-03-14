@@ -14,7 +14,7 @@ const SingleCoinPage = () => {
   const categoryFirstUpperCase =
     category.charAt(0).toUpperCase() + category.slice(1);
 
-  const { data: coinData } = useCustomSWR(
+  const { data: coinData, error: coinError } = useCustomSWR(
     `https://api.coingecko.com/api/v3/coins/${category}?localization=false&tickers=false&market_data=true&developer_data=true&sparkline=false
   `
   );
@@ -26,27 +26,32 @@ const SingleCoinPage = () => {
     "x-rapidapi-host": "free-news.p.rapidapi.com",
     "x-rapidapi-key": process.env.REACT_APP_RAPID_APIKEY,
   };
-  const { data: newsData } = useCustomSWR(
+  const { data: newsData, error: newsError } = useCustomSWR(
     "https://free-news.p.rapidapi.com/v1/search",
     paramsData,
     headers
   );
+
   if (!coinData) {
     return <Spinner />;
   }
   if (!newsData) {
     return <Spinner />;
   }
-  console.log(newsData);
   return (
     <Container>
       <Coin data={coinData} />
-      <div>
-        <h1 style={{ margin: "2rem" }}>
-          Latest News About {categoryFirstUpperCase}
-        </h1>
-        <News data={newsData} />
-      </div>
+      {newsData.status === "ok" ? (
+        <div>
+          <h1 style={{ margin: "2rem" }}>
+            Latest News About {categoryFirstUpperCase}
+          </h1>
+
+          <News data={newsData} />
+        </div>
+      ) : (
+        <h2>No posts related..</h2>
+      )}
     </Container>
   );
 };

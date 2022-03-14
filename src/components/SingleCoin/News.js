@@ -2,6 +2,7 @@ import Card from "../Card";
 import classes from "./News.module.css";
 const News = (props) => {
   const { data } = props;
+
   return (
     <div className={classes.article__container}>
       {data.articles.map((article, index) => (

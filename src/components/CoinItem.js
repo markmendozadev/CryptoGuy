@@ -33,7 +33,12 @@ const CoinItem = (props) => {
           </div>
         </div>
       </td>
-      <td>${coin.current_price.toLocaleString()}</td>
+      <td>
+        $
+        {coin.current_price.toLocaleString(undefined, {
+          maximumFractionDigits: 20,
+        })}
+      </td>
       <td>
         {coin.max_supply ? (
           coin.max_supply.toLocaleString()

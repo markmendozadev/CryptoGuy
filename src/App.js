@@ -12,6 +12,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="coins" element={<CoinPage />} />
           <Route path="coins/:coinsId" element={<SingleCoinPage />} />
+          <Route path="*" element={<HomePage />} />
         </Routes>
       </Layout>
     </HashRouter>

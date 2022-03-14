@@ -1,0 +1,15 @@
+.search {
+  width: 250px;
+}
+.result {
+  margin: 1rem 1rem 1rem 0;
+  padding: 0.5rem;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+@media only screen and (max-width: 600px) {
+  .search {
+    width: 200px;
+  }
+}

@@ -27,7 +27,7 @@ const HomePage = () => {
   }
   return (
     <Container>
-      <h2 className={classes.main_title}>Latest News About {category} </h2>
+      <h1 className={classes.main_title}>Latest News About {category} </h1>
       <div className={classes.masonary}>
         {data.articles.map((article, index) => (
           <div key={index}>

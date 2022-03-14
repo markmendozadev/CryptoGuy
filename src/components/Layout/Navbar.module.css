@@ -1,4 +1,4 @@
-.navbar {
+.navbar__container {
   background-color: #352d39 !important;
 
   display: flex;
@@ -6,16 +6,69 @@
   align-items: center;
   padding: 1rem;
 }
-.navbar ul {
+.navbar > ul {
   display: flex;
   gap: 3rem;
   justify-content: center;
   align-items: center;
 }
-.navbar ul li {
+.navbar > ul li {
   list-style: none;
 }
-.navbar a {
+.navbar a,
+.navbar__container a {
   color: #fff;
   text-decoration: none;
+}
+
+.mobileNavToggle {
+  display: none;
+}
+
+@media (max-width: 69rem) {
+  .nav__overlay {
+    inset: 0 0 0 0;
+    position: fixed;
+    background: #010d202d;
+    backdrop-filter: blur(1rem);
+    z-index: 3;
+  }
+  .primaryNavigation {
+    position: fixed;
+    background: #352d39;
+    flex-direction: column;
+    inset: 0 0 0 25%;
+    text-align: center;
+    padding: min(30vh, 5rem) 2rem;
+    transform: translateX(0);
+    transition: transform 350ms ease-in;
+    z-index: 1000;
+  }
+
+  .nav__overlay {
+    inset: 0 0 0 0;
+    position: fixed;
+    background: #010d202d;
+    backdrop-filter: blur(1rem);
+    z-index: 3;
+  }
+
+  .mobileNavToggle {
+    position: absolute;
+    display: block;
+    width: 2rem;
+    aspect-ratio: 1;
+    right: 2rem;
+    z-index: 9999;
+    border: 0;
+    color: #fff;
+    background: none;
+    font-size: 1.5rem;
+  }
+  .isOpen {
+    transform: translateX(0);
+  }
+  .isClose {
+    transform: translateX(100%);
+  }
 }

@@ -11,10 +11,20 @@ const Coin = (props) => {
           <span>({data.symbol.toUpperCase()})</span>
         </div>
         <div className="body__container">
-          <h4>${data.market_data.current_price.usd.toLocaleString()}</h4>
+          <h4>
+            $
+            {data.market_data.current_price.usd.toLocaleString(undefined, {
+              maximumFractionDigits: 20,
+            })}
+          </h4>
           <p>
             Market Cap:
-            <span>${data.market_data.market_cap.usd.toLocaleString()}</span>
+            <span>
+              $
+              {data.market_data.market_cap.usd.toLocaleString(undefined, {
+                maximumFractionDigits: 15,
+              })}
+            </span>
           </p>
           <p>
             Max Supply:
