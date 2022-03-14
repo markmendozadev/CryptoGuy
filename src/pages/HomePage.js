@@ -1,30 +1,27 @@
 import React from "react";
-import useSWR from "swr";
-import axios from "axios";
+
 import Card from "../components/Card";
 import Spinner from "../components/Spinner";
 
-import "../styles/Homepage.css";
-
-const fetcher = (url, page, category, page_size) =>
-  axios
-    .get(url, {
-      params: { q: category, lang: "en", page, page_size },
-      headers: {
-        "x-rapidapi-host": "free-news.p.rapidapi.com",
-        "x-rapidapi-key": process.env.REACT_APP_RAPID_APIKEY,
-      },
-    })
-    .then((res) => res.data);
+import classes from "./Homepage.module.css";
+import useCustomSWR from "../hooks/useCustomSWR";
 
 const category = "Cryptocurrency";
 const page = 1;
 const page_size = 24;
+const params = { q: category, lang: "en", page, page_size };
+const headers = {
+  "x-rapidapi-host": "free-news.p.rapidapi.com",
+  "x-rapidapi-key": process.env.REACT_APP_RAPID_APIKEY,
+};
+
 const HomePage = () => {
-  const { data } = useSWR(
-    ["https://free-news.p.rapidapi.com/v1/search", page, category, page_size],
-    fetcher
+  const { data, error } = useCustomSWR(
+    "https://free-news.p.rapidapi.com/v1/search",
+    params,
+    headers
   );
+
   if (!data) {
     return <Spinner />;
   }
@@ -41,6 +38,8 @@ const HomePage = () => {
               width="100%"
               height="300px"
             />
+            <span>{article.topic}</span>
+            <span>{article.twitter_account}</span>
             <h4>{article.title}</h4>
             <div className="">{article.summary}</div>
           </Card>

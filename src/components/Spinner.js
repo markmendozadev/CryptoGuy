@@ -1,8 +1,8 @@
 import React from "react";
-import "./Spinner.css";
+import classes from "./Spinner.module.css";
 const Spinner = () => {
   return (
-    <div className="lds-spinner">
+    <div className={classes.ldsSpinner}>
       <div></div>
       <div></div>
       <div></div>

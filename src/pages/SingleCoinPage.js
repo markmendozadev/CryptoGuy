@@ -8,6 +8,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const SingleCoinPage = () => {
   const params = useParams();
+  const category = params.coinsId;
   const { data } = useSWR(
     `https://api.coingecko.com/api/v3/coins/${params.coinsId}?localization=false&tickers=false&market_data=true&developer_data=true&sparkline=false
   `,
